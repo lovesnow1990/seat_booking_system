@@ -53,7 +53,7 @@ class SeatViewSet(viewsets.ModelViewSet):
 
         locked_seats = []
         failed_seats = []
-        lock_duration_seconds = 60 * 3
+        lock_duration_seconds = 60 * 3 # 3分鐘鎖定時間
 
         for seat_id in seat_ids:
             try:

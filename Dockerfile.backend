@@ -1,0 +1,20 @@
+# Backend (Django) Dockerfile
+FROM python:3.11-slim
+
+# 設定工作目錄
+WORKDIR /app
+
+# 複製 requirements.txt 並安裝依賴
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 複製 Django 專案原始碼
+COPY manage.py ./
+COPY booking ./booking
+COPY seat_booking_system_backend ./seat_booking_system_backend
+
+# 收集靜態檔案（如有）
+RUN python manage.py collectstatic --noinput || true
+
+# 預設啟動指令
+CMD ["gunicorn", "seat_booking_system_backend.wsgi:application", "-b", "0.0.0.0:8000"]
