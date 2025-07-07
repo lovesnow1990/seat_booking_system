@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,17 +157,20 @@ WSGI_APPLICATION = 'seat_booking_system_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'seat_booking_db',          # 請改成您想建立的資料庫名稱
-        'USER': 'postgres',                  # PostgreSQL 超級使用者名稱
-        'PASSWORD': '790716', # 請替換成您實際設定的密碼
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'seat_booking_db',          # 請改成您想建立的資料庫名稱
+#         'USER': 'postgres',                  # PostgreSQL 超級使用者名稱
+#         'PASSWORD': '790716', # 請替換成您實際設定的密碼
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
